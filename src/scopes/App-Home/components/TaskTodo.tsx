@@ -1,7 +1,7 @@
-import clsx from "clsx"
+import clsx from 'clsx'
 import { TrashIcon } from '@/components/icons/TrashIcon'
-import { cursorTo } from "node:readline"
-import { useState } from "react"
+import { cursorTo } from 'node:readline'
+import { useState } from 'react'
 
 
 export type TaskProps = {
@@ -11,45 +11,45 @@ export type TaskProps = {
     deleteTask: (id: number) => void
     toggleTask: (id: number) => void
     className?: string
-  }
-  
-  export const TaskTodo = ({ id, value, status, deleteTask, toggleTask, className }: TaskProps) => {
+}
+
+export const TaskTodo = ({ id, value, status, deleteTask, toggleTask, className }: TaskProps) => {
     const [isExpanded, setIsExpanded] = useState(false)
 
     return (
-      <>
-        <div 
-          className="flex items-center w-full max-w-[700px] mx-auto text-xl py-2 rounded-lg my-4 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-700"
-          onClick={() => toggleTask(id)}>
-          
-          <input type="checkbox" 
-            checked={status} 
-            className="mx-2 accent-gray-300"/>
+        <>
+            <div
+                className="flex items-center w-full max-w-[700px] mx-auto text-xl py-2 rounded-lg my-4 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-700"
+                onClick={() => toggleTask(id)}>
 
-<p 
-          className={clsx(
-            status && "line-through",
-            "flex-1 break-words w-full",
-            isExpanded ? "" : "truncate"
-          )}
-          style={{ cursor: "pointer", wordBreak: "break-word" }}
-          onClick={(e) => {
-            e.stopPropagation()
-            setIsExpanded(!isExpanded)
-          }}
-        >
-          {value}
-        </p>
+                <input type="checkbox"
+                       checked={status}
+                       className="mx-2 accent-gray-300"/>
 
-          <button 
-            onClick={() => deleteTask(id)}
-            className="mx-2">
-            <TrashIcon className="w-4 h-4 text-black/40" />
-          </button>
+                <p
+                    className={clsx(
+                        status && 'line-through',
+                        'flex-1 break-words w-full',
+                        isExpanded ? '' : 'truncate',
+                    )}
+                    style={{ cursor: 'pointer', wordBreak: 'break-word' }}
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        setIsExpanded(!isExpanded)
+                    }}
+                >
+                    {value}
+                </p>
 
-        </div>
-      </>
+                <button
+                    onClick={() => deleteTask(id)}
+                    className="mx-2">
+                    <TrashIcon className="w-4 h-4 text-black/40"/>
+                </button>
+
+            </div>
+        </>
     )
-  }
-  
-  export default TaskTodo
+}
+
+export default TaskTodo
