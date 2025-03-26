@@ -1,0 +1,1 @@
+export {App as default} from '@/scopes/App-Header/layouts/Header'
