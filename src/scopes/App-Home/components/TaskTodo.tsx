@@ -22,21 +22,18 @@ export const TaskTodo = ({ id, value, status, deleteTask, toggleTask, className 
                 className="flex items-center w-full max-w-[700px] mx-auto text-xl py-2 rounded-lg my-4 bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-700"
                 onClick={() => toggleTask(id)}>
 
-                <input type="checkbox"
-                       checked={status}
-                       className="mx-2 accent-gray-300"/>
+                <input 
+                    type="checkbox"
+                    checked={status}
+                    className="mx-2 accent-gray-300"
+                />
 
                 <p
                     className={clsx(
                         status && 'line-through',
-                        'flex-1 break-words w-full',
-                        isExpanded ? '' : 'truncate',
+                        'flex-1 w-full',
                     )}
                     style={{ cursor: 'pointer', wordBreak: 'break-word' }}
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        setIsExpanded(!isExpanded)
-                    }}
                 >
                     {value}
                 </p>
@@ -44,7 +41,7 @@ export const TaskTodo = ({ id, value, status, deleteTask, toggleTask, className 
                 <button
                     onClick={() => deleteTask(id)}
                     className="mx-2">
-                    <TrashIcon className="w-4 h-4 text-black/40"/>
+                    <TrashIcon className="w-6 h-6 text-black/40"/>
                 </button>
 
             </div>

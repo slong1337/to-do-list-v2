@@ -1,0 +1,1 @@
+export {Tracker as default} from '@/scopes/App-Menu/layouts/Tracker'

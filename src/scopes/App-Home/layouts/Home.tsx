@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import TodoItem from '@/scopes/App-Home/components/TodoItem'
+import TextArea from '@/scopes/App-Home/components/TextArea'
 import TaskTodo from '@/scopes/App-Home/components/TaskTodo'
 import { AddIcon } from '@/components/icons/AddIcon'
+import { TrashIcon } from '@/components/icons/TrashIcon'
 
 interface Task {
     id: number
@@ -13,6 +14,9 @@ export const Home = () => {
     const [todo, setTodo] = useState('')
     const [tasks, setTasks] = useState<Task[]>([])
     const [done, setDone] = useState('')
+    const [show, setShow] = useState(true)
+
+
 
     useEffect(() => {
         const savedTasks = localStorage.getItem('tasks')
@@ -86,7 +90,7 @@ export const Home = () => {
             </div>
 
 
-            <div className=" w-full min-h-screen flex flex-col items-center bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 pt-4 pb-40">
+            <div className=" w-full min-h-screen flex flex-col items-center bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 pt-4">
                 <div className="flex-1 w-full max-w-xl px-4">
                     {copiTasks.map((task) => (
                         <TaskTodo
@@ -100,9 +104,23 @@ export const Home = () => {
                     ))}
                 </div>
 
-                <TodoItem todo={todo} setTodo={setTodo} addTask={addTask}/>
+                {show && <TextArea
+                todo={todo} 
+                setTodo={setTodo} 
+                addTask={addTask}
+                /> }
 
-                <AddIcon className="w-10 h-10"/>
+                <button 
+                    className='sm:hidden sticky bottom-1 '
+                    onClick={() => setShow(!show)}>
+                        {show ? (
+                            <TrashIcon className="h-10 w-10 text-white bg-slate-600 rounded-full dark:bg-slate-900"/>
+                        ) : (
+                            <AddIcon className="h-10 w-10 text-white bg-slate-600 rounded-full dark:bg-slate-900"/>
+                        )
+                        }
+                </button> 
+                
             </div>
 
 
