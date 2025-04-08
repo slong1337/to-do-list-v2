@@ -16,9 +16,10 @@ import {
   type CalendarProps = {
     currentDate: Date
     className?: string
+    calendarId: number
   }
   
-  export default function Calendar({ currentDate, className }: CalendarProps) {
+  export default function Calendar({ currentDate, className, calendarId }: CalendarProps) {
     const monthStart = startOfMonth(currentDate)
     const monthEnd = endOfMonth(monthStart)
     const startDate = startOfWeek (monthStart, {locale:ru, weekStartsOn:1})
@@ -27,16 +28,17 @@ import {
     function handleDayClick(date: Date) {
       setSelectedDate(date)
     }
+    const localStorageKey = `calendar-button-states-${calendarId}`
     const [buttonStates, setButtonStates] = useState<Record<string, boolean>>(() => {
-      const stored = localStorage.getItem("calendar-button-states")
+      const stored = localStorage.getItem(localStorageKey)
       return stored ? JSON.parse(stored) : {}
     })
     const trueCount = Object.values(buttonStates).filter(Boolean).length
 
 
     useEffect(() => {
-      localStorage.setItem("calendar-button-states", JSON.stringify(buttonStates))
-    }, [buttonStates])
+      localStorage.setItem(localStorageKey, JSON.stringify(buttonStates)) // Сохраняем в уникальный ключ
+    }, [buttonStates, localStorageKey])
 
     const dateFormat = 'd'
     const rows = []
@@ -55,11 +57,7 @@ import {
           <button 
             key={cloneDay.toISOString()}
             value={String(isActive)}
-            onClick={() => {
-              setButtonStates(prev => ({
-                ...prev,
-                [dateKey]: !prev[dateKey]
-              }))
+            onClick={() => {setButtonStates(prev => ({...prev,[dateKey]: !prev[dateKey]}))
             }}
             className={clsx("w-full aspect-square border text-center rounded-full transition",
               {
@@ -80,7 +78,7 @@ import {
             key={day.toISOString()}
             className="grid grid-cols-7">
               {days}
-            </div>
+          </div>
         )
 
         days = []
@@ -90,7 +88,7 @@ import {
 
     return (
 
-      <div className="max-w-md mx-auto p-4 shadow bg-slate-600">
+      <div className="max-w-md mx-auto p-4 shadow bg-slate-300 dark:bg-slate-600">
 
         <h1 className="text-xl font-semibold text-center pb-2 text-white">
           Название привычки
@@ -105,14 +103,13 @@ import {
           ))}
         </div>
         
-
         {rows}
 
         <p className="text-sm font-semibold text-right mt-4">
           {format(currentDate, "LLLL yyyy", { locale: ru })}
         </p>
 
-        <p className=" text-sm text-gray-400 mb-2">
+        <p className=" text-sm text-gray-400 mb-2"> 
           Отмечено:
           <span className="font-semibold text-blue-300 px-2">
             {trueCount}

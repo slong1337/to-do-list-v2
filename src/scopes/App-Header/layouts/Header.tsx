@@ -34,20 +34,22 @@ export function App() {
             />
 
                 {isMenuOpen && (
-                <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-end z-50 transition-transform duration-300">
+                <div 
+                onClick={toggleMenu} 
+                className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-end z-50 transition-transform duration-300">
 
-                    <div className="bg-white w-64 h-full p-4 flex flex-col justify-between">
+                    <div className="bg-white dark:bg-slate-600 w-64 h-full p-4 flex flex-col justify-between">
                         <div>
 
                             <Link to="/">
-                                <button className="rounded bg-gray-200 p-2 w-full mb-4"
+                                <button className="rounded bg-gray-200 dark:bg-slate-400 p-2 w-full mb-4"
                                 onClick={toggleMenu}>
                                     Главная
                                 </button>
                             </Link>
 
                             <Link to="/track">
-                                <button className="rounded bg-gray-200 p-2 w-full mb-4"
+                                <button className="rounded bg-gray-200 dark:bg-slate-400 p-2 w-full mb-4"
                                 onClick={toggleMenu}>
                                     Трекер привычек
                                 </button>
@@ -55,13 +57,14 @@ export function App() {
 
                         </div>
 
-                        <button className="mb-4 p-6 bg-gray-200 rounded"
+                        <button className="mb-4 p-6 bg-gray-200 dark:bg-slate-400 rounded"
                             onClick={toggleMenu}
                         >
                             Закрыть меню
                         </button>
 
                     </div>
+                    
                 </div>
                 )}
 
