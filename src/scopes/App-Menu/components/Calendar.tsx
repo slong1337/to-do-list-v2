@@ -10,16 +10,17 @@ import {
   } from "date-fns"
   import { ru } from "date-fns/locale"
   import { useState, useEffect } from "react"
-  import clsx from "clsx"
-  
+  import clsx from "clsx"  
 
   type CalendarProps = {
     currentDate: Date
     className?: string
     calendarId: number
+    title: string
+    onDelete: () => void
   }
   
-  export default function Calendar({ currentDate, className, calendarId }: CalendarProps) {
+  export default function Calendar({ currentDate, className, calendarId, title, onDelete  }: CalendarProps) {
     const monthStart = startOfMonth(currentDate)
     const monthEnd = endOfMonth(monthStart)
     const startDate = startOfWeek (monthStart, {locale:ru, weekStartsOn:1})
@@ -59,10 +60,10 @@ import {
             value={String(isActive)}
             onClick={() => {setButtonStates(prev => ({...prev,[dateKey]: !prev[dateKey]}))
             }}
-            className={clsx("w-full aspect-square border text-center rounded-full transition",
+            className={clsx("aspect-square m-1 rounded-full",
               {
                 "bg-blue-500 text-white hover:bg-blue-700": isActive,
-                "hover:bg-gray-100": !isActive,
+                "hover:bg-gray-300": !isActive,
                 "!text-gray-400": !isSameMonth(cloneDay, monthStart)
               }
             )}
@@ -88,12 +89,11 @@ import {
 
     return (
 
-      <div className="max-w-md mx-auto p-4 shadow bg-slate-300 dark:bg-slate-600">
+      <div className="max-w-md mx-auto p-4 mt-4 shadow bg-slate-300 dark:bg-slate-600">
 
         <h1 className="text-xl font-semibold text-center pb-2 text-white">
-          Название привычки
+          {title || "Без названия"}
         </h1>
-
 
         <div className="grid grid-cols-7 font-medium text-center">
           {weekDays.map(day => (
@@ -115,6 +115,13 @@ import {
             {trueCount}
           </span>дней
         </p>
+
+        <button
+          onClick={onDelete}
+          className="text-sm text-red-500 hover:underline block mx-auto mt-2"
+        >
+          Удалить
+        </button>
 
       </div>
     )

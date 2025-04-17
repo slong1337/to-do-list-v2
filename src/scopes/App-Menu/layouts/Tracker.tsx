@@ -6,6 +6,7 @@ import {startOfMonth} from 'date-fns'
 type CalendarData = {
     id: number
     currentDate: Date
+    title: string
   }
 
   const STORAGE_KEY = "my-calendars"
@@ -31,32 +32,51 @@ export const Tracker = () => {
       }, [calendars])
     
       function handleAddCalendar() {
+        const title = prompt("Введите название привычки")
+        if (!title) return
+      
         const newCalendar: CalendarData = {
           id: Date.now(),
+          title,
           currentDate: startOfMonth(new Date())
         }
+      
         setCalendars(prev => [...prev, newCalendar])
+      }
+
+      function handleDeleteCalendar(id: number) {
+        setCalendars(prev => prev.filter(calendar => calendar.id !== id))
       }
 
 
     return (
     <>
+    
         <div className="px-4 dark:bg-slate-800 min-h-screen">
             <p className="py-4 text-xl dark:text-white">Мои привычки</p>
-                
-                <button 
-                className="flex fixed bottom-2 right-4"
-                onClick={handleAddCalendar}>
-                    <AddIcon className="h-10 w-10 text-white"/>
-                </button>
-                
-                {calendars.map((calendar) => (
-                <Calendar
-                key={calendar.id}
-                currentDate={calendar.currentDate}
-                calendarId={calendar.id}
-                />
-                ))}
+                <div className='m'>
+
+                  <button 
+                    className="flex fixed bottom-2 right-4"
+                    onClick={handleAddCalendar}>
+                        <AddIcon className="h-10 w-10 dark:text-white text-black"/>
+                  </button>
+
+                  <div className=''>
+                    {calendars.map((calendar,index) => (
+                      <div>
+                        <Calendar
+                        key={calendar.id}
+                        currentDate={calendar.currentDate}
+                        calendarId={calendar.id}
+                        title={calendar.title}
+                        onDelete={() => handleDeleteCalendar(calendar.id)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
         </div>
     </>
     )
