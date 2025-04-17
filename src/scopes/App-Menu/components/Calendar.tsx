@@ -62,8 +62,8 @@ import {
             }}
             className={clsx("aspect-square m-1 rounded-full",
               {
-                "bg-blue-500 text-white hover:bg-blue-700": isActive,
-                "hover:bg-gray-300": !isActive,
+                "bg-blue-400 dark:bg-blue-700 text-white hover:bg-blue-700": isActive,
+                "dark:sm:hover:bg-gray-300 sm:hover:bg-gray-400 ": !isActive,
                 "!text-gray-400": !isSameMonth(cloneDay, monthStart)
               }
             )}
@@ -118,7 +118,7 @@ import {
 
         <button
           onClick={onDelete}
-          className="text-sm text-red-500 hover:underline block mx-auto mt-2"
+          className="text-sm text-red-400 block mx-auto mt-2"
         >
           Удалить
         </button>

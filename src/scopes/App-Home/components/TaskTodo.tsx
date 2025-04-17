@@ -11,9 +11,10 @@ export type TaskProps = {
     deleteTask: (id: number) => void
     toggleTask: (id: number) => void
     className?: string
+    onClick?: () => void
 }
 
-export const TaskTodo = ({ id, value, status, deleteTask, toggleTask, className }: TaskProps) => {
+export const TaskTodo = ({ id, value, status, deleteTask, toggleTask, className, onClick }: TaskProps) => {
     const [isExpanded, setIsExpanded] = useState(false)
 
     return (
