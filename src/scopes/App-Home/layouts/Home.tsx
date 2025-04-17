@@ -15,7 +15,7 @@ export const Home = () => {
     const [todo, setTodo] = useState('')
     const [tasks, setTasks] = useState<Task[]>([])
     const [done, setDone] = useState('')
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(true)
 
 
 
@@ -77,7 +77,7 @@ export const Home = () => {
 
     const handleAddTask = () => {
         addTask();
-        setShow(false);
+        setShow(true);
       };
 
 
@@ -96,8 +96,8 @@ export const Home = () => {
             </div>
 
 
-            <div className=" w-full min-h-screen flex flex-col items-center bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300 ">
-                <div className="flex-1 w-full max-w-xl px-4">
+            <div className="w-full min-h-screen flex flex-col items-center bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300">
+                <div className="flex-1 w-full max-w-xl px-4 pb-10">
                     {copiTasks.map((task) => (
                         <TaskTodo
                             key={task.id}
